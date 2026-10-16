@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survei Evaluasi Diri & Kepribadian</title>
+  <styleWah, ide kejutan yang sangat kreatif dan jahil! Konsep survey formal yang berakhir prank kayak gini pasti bikin adek lu (Ananda Sabrina Lukman) kaget sekaligus terharu. 
+
+Gua udah buatkan kode HTML & CSS lengkap (semua dalam satu file biar praktis) plus tutorial cara upload ke **GitHub Pages** gratis.
+
+---
+
+## 1. Kode Website (`index.html`)
+
+Buat sebuah file baru di komputer lu dengan nama **`index.html`**, lalu *copy-paste* kode di bawah ini:
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survei Kepribadian & Evaluasi Diri</title>
+    <!-- Library untuk efek konfeti -->
+    <script src="[https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js](https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js)"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.8s ease;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+
+        /* Tampilan Form Formal */
+        h2 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .options label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Tampilan Surprise Ultah (Sembunyi dulu) */
+        #birthday-card {
+            display: none;
+            text-align: center;
+            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .bday-title {
+            font-size: 2rem;
+            color: #ff4757;
+            margin-bottom: 10px;
+            border: none;
+        }
+
+        .name {
+            font-size: 1.5rem;
+            color: #2ed573;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            font-size: 1rem;
+            color: #57606f;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            background: #fff0f3;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #ff4757;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-box">
+        <!-- FORM SURVEY FORMAL -->
+        <div id="survey-form">
+            <h2>Survei Evaluasi Kepribadian</h2>
+            <p class="subtitle">Mohon isi pertanyaan berikut dengan jujur untuk analisis data.</p>
+
+            <!-- Soal 1 -->
+            <div class="question active" id="q1">
+                <label for="ans1">1. Nama Lengkap Anda:</label>
+                <input type="text" id="ans1" placeholder="Masukkan nama...">
+                <button onclick="nextQuestion(2)">Lanjut</button>
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="question" id="q2">
+                <label>2. Seberapa sering Anda merasa fokus dalam menjalani aktivitas harian?</label>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="Sangat Sering"> Sangat Sering</label>
+                    <label><input type="radio" name="q2" value="Kadang-kadang"> Kadang-kadang</label>
+                    <label><input type="radio" name="q2" value="Jarang"> Jarang</label>
+                </div>
+                <button onclick="nextQuestion(3)">Lanjut</button>
+            </div>
+
+            <!-- Soal 3 -->
+            <div class="question" id="q3">
+                <label>3. Pilih rentang umur Anda saat ini:</label>
+                <select id="ans3">
+                    <option value="">-- Pilih Rentang --</option>
+                    <option value="<15">< 15 Tahun</option>
+                    <option value="15-20">15 - 20 Tahun</option>
+                    <option value=">20">> 20 Tahun</option>
+                </select>
+                <button onclick="nextQuestion(4)">Lanjut</button>
+            </div>
+
+            <!-- Soal 4 -->
+            <div class="question" id="q4">
+                <label>4. Apakah Anda menyukai kejutan atau hal-hal yang tidak terduga?</label>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="Sangat Suka"> Sangat Suka</label>
+                    <label><input type="radio" name="q4" value="Biasa Saja"> Biasa Saja</label>
+                    <label><input type="radio" name="q4" value="Tidak Suka"> Tidak Suka</label>
+                </div>
+                <button onclick="nextQuestion(5)">Lanjut</button>
+            </div>
+
+            <!-- Soal 5 (Jebakan) -->
+            <div class="question" id="q5">
+                <label>5. Pertanyaan Penting: Apakah kamu sayang sama Abang kamu yang paling ganteng ini? 🤨</label>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="Sayang Banget"> Sayang Bangeeet!</label>
+                    <label><input type="radio" name="q5" value="Sayang Aja"> Sayang aja deh</label>
+                    <label><input type="radio" name="q5" value="Terpaksa Sayang"> Terpaksa Sayang 😜</label>
+                </div>
+                <button onclick="showSurprise()" style="background-color: #28a745;">Kirim Jawaban</button>
+            </div>
+        </div>
+
+        <!-- PRANK / UTAPAN ULTAH -->
+        <div id="birthday-card">
+            <div class="emoji">🎉🥳🎉</div>
+            <h1 class="bday-title">PRANKKK! SELAMAT ULANG TAHUN!</h1>
+            <div class="name">Ananda Sabrina Lukman</div>
+            
+            <div class="message">
+                <p><strong>Maap ya harusnya kemaren... 🙏</strong></p>
+                <p>Tapi gapapa kan, yang penting doa dan ketulusannya tetep fresh dari oven! 🎂</p>
+                <br>
+                <p>Semoga di umur kamu yang baru ini makin pinter, makin sehat, lancar rezekinya, dan makin sayang sama abang kamu yang ganteng ini! Jangan ngambek lagi ya! All the best for you! ✨🎈</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextQuestion(num) {
+            // Sembunyikan semua soal
+            const questions = document.querySelectorAll('.question');
+            questions.forEach(q => q.classList.remove('active'));
+
+            // Tampilkan soal berikutnya
+            document.getElementById('q' + num).classList.add('active');
+        }
+
+        function showSurprise() {
+            // Ubah background & tampilan
+            document.body.style.backgroundColor = '#ffebef';
+            document.getElementById('survey-form').style.display = 'none';
+            document.getElementById('birthday-card').style.display = 'block';
+
+            // Efek Konfeti (Pesta Kertas)
+            var count = 200;
+            var defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+    </script>
+</body>
+</html>
